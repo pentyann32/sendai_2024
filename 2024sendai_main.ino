@@ -43,8 +43,13 @@ void setup(){
     analogWrite(right_clock,127);
     analogWrite(left_clock,127);    
     if(analogRead(A0)<sikiiti && analogRead(A3)<sikiiti){
+      digitalWrite(left_clock,LOW);
+      digitalWrite(right_clock,LOW);
+      delay(500);
+      analogWrite(right_clock,127);
+      analogWrite(left_clock,127); 
+      delay(200);
       marker_1 = 1;
-      delay(100);
     }
   }while(marker_1 == 1){
     if(analogRead(A0)<sikiiti && analogRead(A3)<sikiiti){
