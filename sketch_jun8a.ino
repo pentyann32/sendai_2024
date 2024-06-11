@@ -34,24 +34,39 @@ void setup(){
   digitalWrite(reset_pin,HIGH);
   delay(100);
   digitalWrite(reset_pin,LOW);
-  analogWrite(rightmoter_clock,127);
-  analogWrite(leftmoter_clock,127);
+  analogWrite(right_clock,127);
+  analogWrite(left_clock,127);
   delay(500);
   if(analogRead(rightsensor)>sikiiti && analogRead(left_sensor)>sikiiti){
+    digitalWrite(left_clock,LOW);
+    digitalWrite(right_clock,LOW);
+    delay(10);
+    
   }
 }
 
 void linetrace(){
-  if(analogRead(right_sensor) < 150 && analogRead(left_sensor) >= 150){
+  analogWrite(right_clock,127);
+  analogWrite(left_clock,127);
+  if(analogRead(right_sensor) < sikiiti && analogRead(left_sensor) >= sikiiti){
     digitalWrite(right_direction,HIGH);
     digitalWrite(left_direction,LOW);
-  }else if(analogRead(right_sensor) >=150 && analogRead(left_sensor) < 150){
+  }else if(analogRead(right_sensor) >=sikiiti && analogRead(left_sensor) < sikiiti){
     digitalWrite(right_direction,LOW);
     digitalWrite(left_direction,HIGH);
   }else{
     digitalWrite(right_direction,LOW);
     digitalWrite(left_direction,LOW);
   }
+}
+
+void kaitenn(){
+  digitalWrite(left_clock,HIGH);
+  digitlaWrite(right_clock,HIGH);
+  delay(30);
+  digitalWrite(left_clock,LOW);
+  digitlaWrite(right_clock,LOW);
+  delay(30);
 }
 
 void loop() {
