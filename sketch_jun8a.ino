@@ -41,7 +41,23 @@ void setup(){
     digitalWrite(left_clock,LOW);
     digitalWrite(right_clock,LOW);
     delay(10);
-    
+    digitalWrite(left_direction,LOW);
+    digitalWrite(right_direction,HIGH);
+    for(int k=0; k<200; k++){
+      kaitenn;
+    }digitalWrite(left_direction,HIGH);
+    digitalWrite(right_direction,HIGH);
+    for(int k=0; k<200; k++){
+      kaitenn;  
+    }digitalWrite(left_direction,LOW);
+    digitalWrite(right_direction,LOW);
+    for(int k=0; k<200; k++){
+      kaitenn;
+    }digitalWrite(left_direction,HIGH);
+    digitalWrite(right_direction,LOW);
+    for(int k=0; k<200; k++){
+      kaitenn;
+    }  
   }
 }
 
