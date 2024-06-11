@@ -7,13 +7,13 @@ Servo armservo;
 int reset_pin = 30;
 int right_clock = 9;
 int left_clock = 10;
-int right_sensor = A1;
-int left_sensor = A0;
 int right_direction = 8;
 int left_direction = 12;
 int kyuuinnmoter_1 = 52;
 int kyuuinnmoter_2 = 53;
 
+int marker_1 = 0;
+int marker_2 = 0;
 int sikiiti = 300;
 
 void setup(){
@@ -27,6 +27,9 @@ void setup(){
   pinMode(reset_pin,OUTPUT);
   pinMode(left_clock,OUTPUT);
   pinMode(right_clock,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(7,OUTPUT);
   kaitenservo.attach(29);
   armservo.attach(31);
   armservo.write(100);
@@ -37,37 +40,53 @@ void setup(){
   analogWrite(right_clock,127);
   analogWrite(left_clock,127);
   delay(500);
-  if(analogRead(rightsensor)>sikiiti && analogRead(left_sensor)>sikiiti){
-    digitalWrite(left_clock,LOW);
-    digitalWrite(right_clock,LOW);
-    delay(10);
-    digitalWrite(left_direction,LOW);
-    digitalWrite(right_direction,HIGH);
-    for(int k=0; k<200; k++){
-      kaitenn;
-    }digitalWrite(left_direction,HIGH);
-    digitalWrite(right_direction,HIGH);
-    for(int k=0; k<200; k++){
-      kaitenn;  
-    }digitalWrite(left_direction,LOW);
-    digitalWrite(right_direction,LOW);
-    for(int k=0; k<200; k++){
-      kaitenn;
-    }digitalWrite(left_direction,HIGH);
-    digitalWrite(right_direction,LOW);
-    for(int k=0; k<200; k++){
-      kaitenn;
+  while(marker_1 < 1){
+    if(analogRead(A0)<sikiiti && analogRead(A3)<sikiiti){
+      digitalWrite(left_clock,LOW);
+      digitalWrite(right_clock,LOW);
+      delay(10);
+      digitalWrite(left_direction,LOW);
+      digitalWrite(right_direction,HIGH);
+      for(int k=0; k<200; k++){
+        kaitenn();
+      }digitalWrite(left_direction,HIGH);
+      digitalWrite(right_direction,HIGH);
+      for(int k=0; k<200; k++){
+        kaitenn;  
+      }digitalWrite(left_direction,LOW);
+       digitalWrite(right_direction,LOW);
+      for(int k=0; k<200; k++){
+        kaitenn;
+      }digitalWrite(left_direction,HIGH);
+      digitalWrite(right_direction,LOW);
+      for(int k=0; k<200; k++){
+        kaitenn;
+      }
+      marker_1 = 1;
+    }else{
+      digitalWrite(left_direction,LOW);
+       digitalWrite(right_direction,LOW);
+      for(int k=0; k<20; k++){
+        kaitenn;
+      }
     }  
+  }while(marker_2 <5){
+    if(analogRead(A0)<sikiiti && analogRead(A3)<sikiiti){
+        marker = marker + 1;
+    }else{
+      linetrace();
+    } 
   }
+  LED_white();
 }
 
 void linetrace(){
   analogWrite(right_clock,127);
   analogWrite(left_clock,127);
-  if(analogRead(right_sensor) < sikiiti && analogRead(left_sensor) >= sikiiti){
+  if(analogRead(A2) < sikiiti && analogRead(A1) >= sikiiti){
     digitalWrite(right_direction,HIGH);
     digitalWrite(left_direction,LOW);
-  }else if(analogRead(right_sensor) >=sikiiti && analogRead(left_sensor) < sikiiti){
+  }else if(analogRead(A2) >=sikiiti && analogRead(A1) < sikiiti){
     digitalWrite(right_direction,LOW);
     digitalWrite(left_direction,HIGH);
   }else{
@@ -83,6 +102,12 @@ void kaitenn(){
   digitalWrite(left_clock,LOW);
   digitlaWrite(right_clock,LOW);
   delay(30);
+}
+
+void LED_white(){
+  digitalWrite(3,HIGH);
+  digitalWrite(5,HIGH);
+  digitalWrite(7,HIGH);
 }
 
 void loop() {
